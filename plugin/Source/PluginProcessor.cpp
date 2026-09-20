@@ -5,12 +5,9 @@ static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout
 {
     std::vector<std::unique_ptr<juce::RangedAudioParameter>> params;
 
-    // Parameters ordered by signal flow: input → EQ → output.
-    // Input Gain extended to +36 dB so the signal can be pushed into the HA-1457
-    // saturation region, modelling preamp overload rather than a separate drive control.
     params.push_back(std::make_unique<juce::AudioParameterFloat>(
         juce::ParameterID{"inputGainDb", 1}, "Input Gain",
-        juce::NormalisableRange<float>(-24.0f, 36.0f, 0.1f), 0.0f));
+        juce::NormalisableRange<float>(-15.0f, 15.0f, 0.1f), 0.0f));
 
     // Measured turnover frequencies: treble ~8 kHz (air shelf), bass ~81 Hz (sub shelf).
     // ±15 dB range matches the measured hardware boost/cut maximum.
@@ -24,7 +21,7 @@ static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout
 
     params.push_back(std::make_unique<juce::AudioParameterFloat>(
         juce::ParameterID{"outputGainDb", 1}, "Output Gain",
-        juce::NormalisableRange<float>(-24.0f, 24.0f, 0.1f), 0.0f));
+        juce::NormalisableRange<float>(-15.0f, 15.0f, 0.1f), 0.0f));
 
     return {params.begin(), params.end()};
 }
