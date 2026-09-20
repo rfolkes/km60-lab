@@ -12,14 +12,15 @@ static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout
         juce::ParameterID{"inputGainDb", 1}, "Input Gain",
         juce::NormalisableRange<float>(-24.0f, 36.0f, 0.1f), 0.0f));
 
-    // Treble shelf at ~1600 Hz, bass shelf at ~350 Hz — frequencies from KM-60 schematic.
+    // Measured turnover frequencies: treble ~8 kHz (air shelf), bass ~81 Hz (sub shelf).
+    // ±15 dB range matches the measured hardware boost/cut maximum.
     params.push_back(std::make_unique<juce::AudioParameterFloat>(
         juce::ParameterID{"trebleDb", 1}, "Treble",
-        juce::NormalisableRange<float>(-12.0f, 12.0f, 0.1f), 0.0f));
+        juce::NormalisableRange<float>(-15.0f, 15.0f, 0.1f), 0.0f));
 
     params.push_back(std::make_unique<juce::AudioParameterFloat>(
         juce::ParameterID{"bassDb", 1}, "Bass",
-        juce::NormalisableRange<float>(-12.0f, 12.0f, 0.1f), 0.0f));
+        juce::NormalisableRange<float>(-15.0f, 15.0f, 0.1f), 0.0f));
 
     params.push_back(std::make_unique<juce::AudioParameterFloat>(
         juce::ParameterID{"outputGainDb", 1}, "Output Gain",

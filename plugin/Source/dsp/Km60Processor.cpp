@@ -1,11 +1,13 @@
 #include "Km60Processor.h"
 #include <cmath>
 
-// Shelf frequencies derived from the KM-60 schematic (AP-90 board).
-// Treble: 1/(2π × 8.2kΩ × 12nF) = 1617 Hz, rounded to 1600.
-// Bass:   estimated ~350 Hz from cap/resistor values — refine after measurement.
-static constexpr double kTrebleHz = 1600.0;
-static constexpr double kBassHz   = 350.0;
+// Shelf turnover frequencies measured from the real KM-60 unit (Session 1, Sep 2026).
+// Derived from REW swept-sine captures: bass_boost and treble_boost relative to flat,
+// passband-normalised; turnover = -3 dB point below shelf maximum.
+// These differ significantly from RC-network calculations — Baxandall topology
+// shifts the -3 dB point well away from the component resonance frequency.
+static constexpr double kTrebleHz = 8000.0;  // measured 8001 Hz, rounded
+static constexpr double kBassHz   =   81.0;  // measured 81 Hz
 static constexpr double kPi       = 3.141592653589793;
 
 // ─── Biquad helpers ──────────────────────────────────────────────────────────

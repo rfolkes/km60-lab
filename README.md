@@ -2,7 +2,7 @@
 
 A native C++ audio plugin modelled on the Boss KM-60 compact mixer (1978). Built with JUCE 8 and CMake.
 
-**Current state:** working VST3 — stereo in/out, schematic-derived Baxandall EQ, HA-1457 saturation model.
+**Current state:** working VST3 — stereo in/out, measurement-informed Baxandall EQ, HA-1457 saturation model.
 
 ---
 
@@ -77,8 +77,8 @@ cp -r build/plugin/KM60Lab_artefacts/Debug/VST3/KM60Lab.vst3 \
 | Parameter   | Range          | Default | Notes                                                        |
 |-------------|----------------|---------|--------------------------------------------------------------|
 | Input Gain  | −24 to +36 dB  | 0 dB    | Extends into saturation territory — see below                |
-| Treble      | −12 to +12 dB  | 0 dB    | High shelf at ~1600 Hz (from KM-60 schematic)                |
-| Bass        | −12 to +12 dB  | 0 dB    | Low shelf at ~350 Hz (estimated — to be refined by measurement) |
+| Treble      | −15 to +15 dB  | 0 dB    | High shelf at 8 kHz (measured from hardware unit)            |
+| Bass        | −15 to +15 dB  | 0 dB    | Low shelf at 81 Hz (measured from hardware unit)             |
 | Output Gain | −24 to +24 dB  | 0 dB    | Compensate level after saturation                            |
 
 Input Gain and Output Gain are smoothed with a 20 ms ramp to prevent zipper noise.
@@ -112,24 +112,23 @@ reaching the knee. Push Input Gain above that to introduce saturation; use Outpu
 bring the level back down — the same workflow as overloading a real channel strip.
 
 > The exact knee shape and harmonic content (H2/H3 ratio from the HA-1457's push-pull
-> output stage) will be refined once hardware measurements are available.
+> output stage) will be refined with THD+N and harmonic profile measurements (Session 2).
 
 ---
 
 ## EQ
 
-The Treble and Bass shelves are derived from component values in the KM-60 AP-90 board schematic.
+The Treble and Bass shelves are measured from the real KM-60 hardware unit (Session 1, Sep 2026)
+using REW swept-sine captures. Turnover frequency = −3 dB below the shelf maximum,
+passband-normalised relative to a flat reference capture.
 
-**Treble (~1600 Hz high shelf)**
-Baxandall topology: R112 = R113 = 8.2 kΩ, C101 = C108 = 12 nF.
-`f = 1 / (2π × 8200 × 12e-9) = 1617 Hz`
+**Treble — 8 kHz high shelf, ±15 dB**  
+A proper "air" shelf. Much higher than the ~1600 Hz figure estimated from the schematic RC values
+— the Baxandall topology places its −3 dB turnover well above the component resonance frequency.
 
-This is much lower than a modern console treble shelf (Neve 1073 = 12 kHz). It affects
-a broad swathe of upper-mids and air simultaneously — a characteristic of the era.
-
-**Bass (~350 Hz low shelf)**
-Component values partially legible in the schematic scan. The 350 Hz figure is an
-estimate; measurement with the hardware unit will confirm the exact turnover.
+**Bass — 81 Hz low shelf, ±15 dB**  
+A sub-bass shelf that primarily affects kick drum fundamentals and bass guitar fundamentals.
+Cuts off quickly above 200 Hz, leaving the upper bass and mids untouched.
 
 ---
 
@@ -156,6 +155,6 @@ measurements/
   analysis/                    — Processed results, plots
 docs/
   hardware-notes.md            — KM-60 schematic analysis, HA-1457 datasheet findings
-  measurement-plan.md          — Planned captures once the hardware unit is available
+  measurement-plan.md          — Capture plan; Session 1 (EQ sweeps) complete
 test-audio/                    — Short clips for manual A/B testing
 ```
