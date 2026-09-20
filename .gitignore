@@ -1,0 +1,64 @@
+# CMake build directories
+build/
+build-release/
+build-*/
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+
+# JUCE FetchContent cache (downloaded on first configure)
+_deps/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+*.icloud
+
+# Xcode
+*.xcodeproj/
+*.xcworkspace/
+DerivedData/
+*.moved-aside
+xcuserdata/
+
+# VS Code
+.vscode/
+
+# CLion / JetBrains
+.idea/
+cmake-build-*/
+
+# Compiled plugin artefacts (installed copy in ~/Library is the working copy)
+*.vst3
+*.au
+*.component
+*.aaxplugin
+
+# Python (measurement scripts)
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# REW exports and large audio captures (track intentionally added files explicitly)
+measurements/captures/*.txt
+measurements/captures/*.wav
+measurements/captures/*.mdat
+measurements/analysis/*.png
+measurements/analysis/*.pdf
+
+# Test audio (large files)
+test-audio/*.wav
+test-audio/*.aif
+test-audio/*.aiff
+test-audio/*.mp3
