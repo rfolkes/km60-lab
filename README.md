@@ -13,7 +13,7 @@ A native C++ audio plugin modelled on the Boss KM-60 compact mixer (1978). Built
 | Platform | Download |
 |----------|----------|
 | macOS (Intel) | [KM60Lab-macOS.zip](https://github.com/rfolkes/km60-lab/raw/main/releases/KM60Lab-macOS.zip) |
-| Windows 64-bit | coming soon |
+| Windows 64-bit | [KM60Lab-Windows.zip](https://github.com/rfolkes/km60-lab/raw/main/releases/KM60Lab-Windows.zip) |
 
 **Install:** unzip, then copy the `KM60Lab.vst3` folder to:
 - **macOS:** `~/Library/Audio/Plug-Ins/VST3/`
