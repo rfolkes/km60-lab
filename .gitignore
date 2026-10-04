@@ -26,6 +26,12 @@ DerivedData/
 *.moved-aside
 xcuserdata/
 
+# Visual Studio
+*.sln
+*.vcxproj*
+*.user
+out/
+
 # VS Code
 .vscode/
 
