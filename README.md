@@ -8,6 +8,8 @@ A native C++ audio plugin modelled on the Boss KM-60 compact mixer (1978). Built
 
 ## Prerequisites
 
+### macOS
+
 - macOS 10.13 or later
 - Xcode (command-line tools are enough for a CLI build, full Xcode needed for IDE)
 - CMake 3.22 or later
@@ -18,11 +20,22 @@ cmake --version          # verify
 brew install cmake       # if missing
 ```
 
+### Windows (64-bit VST3)
+
+- Windows 10 or later (64-bit)
+- [Build Tools for Visual Studio 2022](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022) (or later) — select the **"Desktop development with C++"** workload during install
+- CMake 3.22 or later (bundled with VS Build Tools, or install standalone from [cmake.org](https://cmake.org/download/))
+- Git
+
+The full Visual Studio IDE is not required — the Build Tools package is sufficient.
+
 ---
 
 ## Build
 
 The first configure step downloads JUCE (~100 MB shallow clone).
+
+### macOS
 
 ```bash
 # Debug build (faster to compile, better for development)
@@ -34,12 +47,36 @@ cmake -B build-release -DCMAKE_BUILD_TYPE=Release
 cmake --build build-release -j$(sysctl -n hw.logicalcpu)
 ```
 
+### Windows
+
+Open a **Developer PowerShell for VS** (installed with the Build Tools) and run:
+
+```powershell
+# Configure (64-bit)
+cmake -B build -G "Visual Studio 17 2022" -A x64
+
+# Debug build
+cmake --build build --config Debug
+
+# Release build
+cmake --build build --config Release
+```
+
+If you prefer faster builds with Ninja (also included with the Build Tools):
+
+```powershell
+cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+cmake --build build
+```
+
 ---
 
 ## Where the VST3 ends up
 
 `COPY_PLUGIN_AFTER_BUILD TRUE` is set in [plugin/CMakeLists.txt](plugin/CMakeLists.txt), so after a
-successful build JUCE copies the plugin automatically to:
+successful build JUCE copies the plugin automatically to the system VST3 folder.
+
+### macOS
 
 ```
 ~/Library/Audio/Plug-Ins/VST3/KM60Lab.vst3
@@ -56,6 +93,20 @@ To install manually if the auto-copy fails:
 cp -r build/plugin/KM60Lab_artefacts/Debug/VST3/KM60Lab.vst3 \
       ~/Library/Audio/Plug-Ins/VST3/
 ```
+
+### Windows
+
+```
+C:\Program Files\Common Files\VST3\KM60Lab.vst3
+```
+
+The intermediate build artefact lives at:
+
+```
+build\plugin\KM60Lab_artefacts\Release\VST3\KM60Lab.vst3
+```
+
+To install manually, copy the `.vst3` folder to the system path above (may require administrator privileges).
 
 ---
 
