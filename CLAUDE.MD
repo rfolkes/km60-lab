@@ -108,21 +108,21 @@ Requirements:
 - Stereo output
 - Generic JUCE editor is acceptable at first
 - Parameters:
-  - `inputGainDb`: -24 dB to +24 dB, default 0 dB
-  - `drive`: 0 to 1, default 0
-  - `outputGainDb`: -24 dB to +24 dB, default 0 dB
+  - `inputGainDb`: -15 dB to +15 dB, default 0 dB
+  - `trebleDb`: -15 dB to +15 dB, default 0 dB (high shelf at 8 kHz, measured)
+  - `bassDb`: -15 dB to +15 dB, default 0 dB (low shelf at 81 Hz, measured)
+  - `outputGainDb`: -15 dB to +15 dB, default 0 dB
 
-Initial DSP:
+Current DSP:
 
 1. Apply input gain.
-2. Apply simple soft saturation using a tanh-style waveshaper.
-3. Apply output gain.
-4. Preserve stereo.
-5. Use smoothed parameter values.
+2. Apply Baxandall shelving EQ (measurement-derived turnover frequencies).
+3. Apply HA-1457 soft saturation (slope-matched soft-knee clipper).
+4. Apply output gain.
+5. Preserve stereo.
+6. Use smoothed parameter values.
 
 No oversampling required in the first version.
-
-Do not add a fancy UI yet.
 
 ## Testing
 

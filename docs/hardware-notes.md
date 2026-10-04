@@ -95,7 +95,7 @@ Both channels use a Baxandall topology. Component values from the AP-90 schemati
 - Series resistors: R112 = R113 = 8.2 kΩ
 - Caps: C101 = C108 = 0.012 µF (12 nF)
 - Shelf turnover: f = 1/(2π × 8200 × 12e-9) = **1617 Hz** (implemented as 1600 Hz)
-- Boost/cut range: ~±15 dB (estimated from pot/series resistor ratio); implemented as ±12 dB pending measurement
+- Boost/cut range: ±15 dB (confirmed by measurement, Session 1)
 
 **Bass:**
 - Pot: 50 kΩ log taper (VR12)
@@ -107,15 +107,26 @@ Both channels use a Baxandall topology. Component values from the AP-90 schemati
 
 ---
 
-## Measurements to prioritise (when unit is available)
+## Measurement status
 
-1. **Bass EQ turnover frequency** — the cap value ambiguity (0.0047 vs 0.047 µF) means
-   the bass shelf could be anywhere from 70–700 Hz. One slow sweep with the bass at max
-   will resolve this immediately.
+### Session 1 — EQ sweeps (Sep 2026, completed)
 
-2. **EQ boost/cut range** — confirm the ±12 dB range or adjust.
+REW swept-sine captures through channel 1, flat/treble/bass at boost and cut.
+Resolved the schematic ambiguities:
 
-3. **THD vs. level at nominal** — confirm the ~14 dB headroom and
+1. **Bass EQ turnover frequency** — measured at **81 Hz**. The cap value ambiguity
+   (0.0047 vs 0.047 µF) is resolved: the low value (sub-bass shelf) is correct.
+
+2. **Treble EQ turnover frequency** — measured at **8 kHz**. Much higher than the
+   ~1600 Hz RC estimate — the Baxandall topology shifts it significantly.
+
+3. **EQ boost/cut range** — confirmed at ±15 dB.
+
+### Still to do
+
+1. **THD vs. level at nominal** — confirm the ~14 dB headroom and
    the actual H2/H3 ratio for the waveshaper model.
 
-4. **Noise floor character** — referenced against the datasheet's 53 µV noise figure.
+2. **Noise floor character** — referenced against the datasheet's 53 µV noise figure.
+
+3. **Crosstalk, send/return, summing bus** — see [measurement-plan.md](measurement-plan.md).

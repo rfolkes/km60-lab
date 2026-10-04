@@ -4,6 +4,10 @@ A native C++ audio plugin modelled on the Boss KM-60 compact mixer (1978). Built
 
 **Current state:** working VST3 — stereo in/out, measurement-informed Baxandall EQ, HA-1457 saturation model.
 
+<p align="center">
+  <img src="docs/images/km60lab-screenshot.png" alt="KM60Lab plugin UI" width="300">
+</p>
+
 ### Download
 
 | Platform | Download |
@@ -140,10 +144,10 @@ To install manually, copy the `.vst3` folder to the system path above (may requi
 
 | Parameter   | Range          | Default | Notes                                                        |
 |-------------|----------------|---------|--------------------------------------------------------------|
-| Input Gain  | −24 to +36 dB  | 0 dB    | Extends into saturation territory — see below                |
+| Input Gain  | −15 to +15 dB  | 0 dB    | Drives the preamp — see saturation model below               |
 | Treble      | −15 to +15 dB  | 0 dB    | High shelf at 8 kHz (measured from hardware unit)            |
 | Bass        | −15 to +15 dB  | 0 dB    | Low shelf at 81 Hz (measured from hardware unit)             |
-| Output Gain | −24 to +24 dB  | 0 dB    | Compensate level after saturation                            |
+| Output Gain | −15 to +15 dB  | 0 dB    | Compensate level after saturation                            |
 
 Input Gain and Output Gain are smoothed with a 20 ms ramp to prevent zipper noise.
 EQ coefficients update once per block (sufficient for non-automated shelf controls).

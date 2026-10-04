@@ -1,7 +1,7 @@
 #pragma once
 
 // Stateful DSP for the KM60Lab channel strip.
-// Contains the schematic-derived Baxandall EQ and the HA-1457 saturation model.
+// Contains the measurement-derived Baxandall EQ and the HA-1457 saturation model.
 class Km60Processor
 {
 public:

@@ -107,7 +107,7 @@ float Km60Processor::processSample(float x, int channel,
 {
     x *= inputGain;
 
-    // Baxandall-style shelving EQ (schematic-derived frequencies),
+    // Baxandall-style shelving EQ (measurement-derived frequencies),
     // before the saturation stage — matching the KM-60 signal chain.
     x = applyBiquad(x, trebleCoeffs, trebleState[channel]);
     x = applyBiquad(x, bassCoeffs,   bassState[channel]);
