@@ -4,6 +4,19 @@ A native C++ audio plugin modelled on the Boss KM-60 compact mixer (1978). Built
 
 **Current state:** working VST3 — stereo in/out, measurement-informed Baxandall EQ, HA-1457 saturation model.
 
+### Download
+
+| Platform | Download |
+|----------|----------|
+| macOS (Intel) | [KM60Lab-macOS.zip](releases/KM60Lab-macOS.zip) |
+| Windows 64-bit | coming soon |
+
+**Install:** unzip, then copy the `KM60Lab.vst3` folder to:
+- **macOS:** `~/Library/Audio/Plug-Ins/VST3/`
+- **Windows:** `C:\Program Files\Common Files\VST3\`
+
+Restart your DAW and rescan plugins. The plugin appears as **KM60Lab**.
+
 ---
 
 ## Prerequisites
